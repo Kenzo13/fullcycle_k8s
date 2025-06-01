@@ -16,19 +16,18 @@ spec:
     spec:
       containers:
         - name: goserver
-          image: "hellokenzo/hello-go:v2"
+          image: "hellokenzo/hello-go:v3.1"
           envFrom:
             - configMapRef:
                 name: goserver-env
-          # env:
-          #   - name: NAME
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: goserver-env
-          #         key: NAME
+          volumeMounts:
+            - mountPath: "/go/myfamily"
+              name: config
 
-          #   - name: AGE
-          #     valueFrom:
-          #       configMapKeyRef:
-          #         name: goserver-env
-          #         key: AGE
+      volumes:
+        - name: config
+          configMap:
+            name: configmap-family
+            items:
+            - key: members
+              path: "family.txt"   
