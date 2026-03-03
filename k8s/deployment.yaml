@@ -18,6 +18,14 @@ spec:
         - name: goserver
           image: "hellokenzo/hello-go:v4.1"
 
+          resources:
+            requests:
+              cpu: "0.05"
+              memory: 20Mi
+            limits:
+              cpu: "0.05"
+              memory: 25Mi
+
           startupProbe:
             httpGet:
               path: /healthz
@@ -53,13 +61,6 @@ spec:
           volumeMounts:
             - mountPath: "/go/myfamily"
               name: config
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "100m"
-            limits:
-              memory: "128Mi"
-              cpu: "250m"
 
       volumes:
         - name: config
